@@ -1,5 +1,5 @@
 # FrequencyCounter
-This code count the frequiencies of the words. But here is the different this code counts the roots of the words. Let me give you an example:
+This code count the frequiencies of the words. But here is the difference, this code counts the roots of the words. Let me give you an example:
 lets say our text is , text= "I swam in the lake last week with John at the London." , 
 output will be "{'i': 1, 'in': 1, 'the': 2, 'lake': 1, 'last': 1, 'week': 1, 'with': 1, 'at': 1, 'london': 1, 'swam': 1}"
 What happened in here ?
