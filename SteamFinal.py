@@ -1,8 +1,14 @@
 import spacy
 from collections import Counter
 from nltk.stem import PorterStemmer
+import pdf
+from spacy.lang.en.stop_words import STOP_WORDS
+
+
+
 
 def process_text(text):
+
     #gerekli modüller
     nlp = spacy.load("en_core_web_sm")
     stemmer = PorterStemmer()
@@ -64,10 +70,22 @@ def process_text(text):
     #birleştirme ve dicte dönüştürme
     combined_dict = Counter(words_lemmas) + Counter(verb_lemmas) + Counter(irregular_lemmas)
     combined_dict = dict(combined_dict)
-    
-    return combined_dict
 
-input_text = "I am going to the park. I love playing in the park. The park is a great place to relax. I went to the park. I saw you. I saw him. Jack was in London past week. I swam in the lake"
-text = "I swam in the lake last week with John at the London"
+    subject_pronouns = {"I", "you", "he", "she", "it", "we", "they"}
+    custom_stopwords = set(STOP_WORDS) - {'i', 'you', 'he', 'she', 'it', 'we', 'they'}
+
+    additional_stopwords = {'\n\n ', '\n'}  # Additional words to exclude
+    custom_stopwords.update(additional_stopwords)
+
+    filtered_dict = {word: count for word, count in combined_dict.items() if word not in custom_stopwords}
+
+
+    return filtered_dict
+
+text = pdf.extract_pdf("alchemist.pdf")
+#input_text = "I went to the London with Fred yesterday. You were looking at me"
 output = process_text(text)
+
 print(output)
+
+
